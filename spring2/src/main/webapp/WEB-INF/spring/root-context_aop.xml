@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 각 스키마에서 정리한 태그들을 사용하기위해 넣어주는 것들 (4개) -->
+<!-- beans태그에서 쓰는 xmlns인터페이스, 원래는 각 인터페이스마다 접두사를 줘야한다. mvc schema에 정의되어있는 태그 접두사는 mvc: 생략가능 -->
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+
+	<aop:aspectj-autoproxy/>		<!-- aop기능 사용하려면 이거 써줘야함. -->
+	<context:component-scan base-package="com.fastcampus.spring2.aop"/>
+
+    
+</beans>

@@ -1,0 +1,4 @@
+car = com.fastcampus.spring2.diCopy1.Truck
+engine = com.fastcampus.spring2.diCopy1.Engine
+car = com.fastcampus.spring2.diCopy2.Truck
+engine = com.fastcampus.spring2.diCopy2.Engine

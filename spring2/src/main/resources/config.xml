@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Car 클래스의 iv들을 property 태그로 초기화. -->
+	<!-- property가 iv의 setter를 호출한다. -->
+	<!-- property 대신 constructor-arg태그를 사용하면 생성자를 쓸 수 있다. -->
+
+	<bean id="car" class="com.fastcampus.spring2.Car">
+		<property name="color" value="red"/>
+		<property name="oil" value="100"/>
+		<property name="engine" ref="engine"/>
+		<property name="door">
+			<array value-type="com.fastcampus.spring2.Door">
+				<ref bean="door"/>
+				<ref bean="door"/>
+			</array>
+		</property>
+	</bean>
+	<bean id="engine" class="com.fastcampus.spring2.Engine" scope="singleton"/>
+	<bean id="door" class="com.fastcampus.spring2.Door" scope="prototype"/>
+
+	<!-- bean은 기본적으로 싱글톤이다. 객체 생성할 때마다 다른 객체 생성하고플땐 prototype으로 설정해준다. -->
+	<!-- scope 지정 안 해주면 싱글톤이다. -->
+	
+</beans>

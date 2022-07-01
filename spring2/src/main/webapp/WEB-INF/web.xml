@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- web.xml의 이벤트 처리기에서 new XmlWebApplicationConext()를 한다. -->
+	<!-- web.xml에서 기본적으로 root-context, servlet-context 이 2개의 AC(XmlWebApplicationContext)를 만든다. -->
+	<!-- 이 2개를 부모-자식 관계로 연결을 해준다. (부모에 공통으로 쓰이는 bean을 넣고, 자식에 개별적으로 쓰이는 bean을 넣는다. )-->
+	<!-- 그래서 부모에는 web과 관련없는 내용의 bean을 넣고( db관련 bean같은거 ), 자식에는 각 모듈에서 사용하는 bean을 넣는다. -->
+	
+	<!-- root AC의 설정파일 위치를 알려줌 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>	
+		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+	</context-param>
+	
+	<!-- listener는 이벤트 처리기 : root-context의 정보로 AC(XmlWebApplicationContext)를 생성한다. -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- DispatcherServlet을 Servlet으로 등록 하면서 AC(servlet-context)를 하나 또 만든다.. -->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 한글 변환 필터 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+</web-app>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 각 스키마에서 정리한 태그들을 사용하기위해 넣어주는 것들 (4개) -->
+<!-- beans태그에서 쓰는 xmlns인터페이스, 원래는 각 인터페이스마다 접두사를 줘야한다. mvc schema에 정의되어있는 태그 접두사는 mvc: 생략가능 -->
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- DriverManagerDataSource객체 등록 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/springbasic?useUnicode=true&amp;characterEncoding=utf8"></property>
+		<property name="username" value="Lim"></property>
+		<property name="password" value="2461"></property>
+	</bean>
+	
+	<!-- DataSourceTransactionManager객체 등록 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/> <!-- dataSource를 setter로 지정해 줌. -->
+	</bean>
+	<tx:annotation-driven/>	<!-- @Transactional 쓰려면 이거 필요 -->
+	
+	<context:component-scan base-package="com.fastcampus.spring2">
+    	<context:exclude-filter type="regex" expression="com.fastcampus.spring2.diCopy*.*"/>
+    </context:component-scan>
+    
+</beans>
